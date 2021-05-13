@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="index.css" > -->
+
+    <style>
+
+        #pincode {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        #mobile {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        #age_group {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        #submit {
+            float: right;
+        }
+
+        .main_div {
+            display: block;
+            background-color: #d5d5c3;
+            padding: 20px;
+            padding-bottom: 55px;
+            max-width: 500px;
+            margin: 20px auto;
+            border-radius: 5px;
+
+        }
+
+        .heading_div {
+            display: block;
+            background-color: #d5d5c3;
+            padding: 20px;
+            max-width: 500px;
+            margin: 20px auto;
+            border-radius: 5px;
+        }
+
+        #result_div {
+            background-color: #d5d5c3;
+            padding: 20px;
+            max-width: 500px;
+            margin: 20px auto;
+            border-radius: 5px;
+        }
+
+        @media screen and (max-width: 510px) {
+            .main_div {
+                margin: 20px 10px;
+            }
+
+            .heading_div {
+                margin: 20px 10px;
+            }
+
+            #result_div {
+                margin: 20px 10px;
+            }
+        }
+
+
+    </style>
+
+
+    <title>Home</title>
+</head>
+<body>
+
+<h3 class="heading_div">Get Cowin Vaccine Availablity Slot Notification on Telegram</h3>
+
+<div class="main_div">
+    <form action="/getLink">
+        <h5> Enter your pincode below to get the Telegram group link for your pincode</h5><br>
+
+        <h6>Pincode</h6>
+        <input class="form-control" id="pincode" name="pincode" placeholder="Enter pincode" type="tel">
+
+        <!-- <h6>Mobile number</h6>
+        <input type="tel" class="form-control" id="mobile" placeholder="Enter mobile number"> -->
+
+        <!-- <h6>Age group</h6>
+        <select class="form-control" id="age_group">
+            <option value="18-45 years">18-45 years</option>
+            <option value="All age group">All age group</option>
+        </select> -->
+
+        <button class="btn btn-outline-primary" id="submit" onsubmit="submitForm()" type="submit">Search</button>
+    </form>
+</div>
+
+<div id="result_div">
+    <h4 style="display: inline-block;">Results for Pincode : &nbsp;</h4><h4 id="result_pincode"
+                                                                            style="display: inline-block;"></h4>
+    <!-- <span>Pincode : </span><span id="result_pincode"></span><br> -->
+    <!-- <span>Age group : </span><span id="result_agegroup"></span><br> -->
+
+    <br>
+    <p>Copy this link and opne in new chrome tab in Mobile Phone only</p>
+    <a th:href="${link}"> <p th:utext="${show}"></p></a>
+
+</div>
+
+<script>
+    function submitForm() {
+
+        var result = document.getElementById("result_div");
+        result.style.display = "block";
+        // $('#result_div').css('display','block');
+
+
+        var pincode = document.getElementById("pincode").value;
+        document.getElementById("result_pincode").innerHTML = pincode;
+        // var agegroup = document.getElementById("age_group").value;
+        // document.getElementById("result_agegroup").innerHTML = agegroup ;
+    }
+
+</script>
+
+
+<!-- <script type="text/javascript" src="index.js" ></script> -->
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script crossorigin="anonymous"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
