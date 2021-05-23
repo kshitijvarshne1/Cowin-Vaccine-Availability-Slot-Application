@@ -82,20 +82,25 @@ public class WebController {
                     if (array != null) {
                         String[] state_name = new String[array.length()];
                         String[] state_address = new String[array.length()];
-                        long[] availableCapacity = new long[array.length()];
+                        long[] available_capacity_dose1 = new long[array.length()];
+                        long[] available_capacity_dose2= new long[array.length()];
                         long[] pincode = new long[array.length()];
                         long[] min_age_limit = new long[array.length()];
-
+                        long[] cost = new long[array.length()];
+                        String[] type= new String[array.length()];
                         String result = "";
                         for (int i = 0; i < array.length(); i++) {
                             state_name[i] = array.getJSONObject(i).getString("name");
                             state_address[i] = array.getJSONObject(i).getString("address");
-                            availableCapacity[i] = array.getJSONObject(i).getLong("available_capacity");
+                            available_capacity_dose1[i] = array.getJSONObject(i).getLong("available_capacity_dose1");
+                            available_capacity_dose2[i]=array.getJSONObject(i).getLong("available_capacity_dose2");
                             pincode[i] = array.getJSONObject(i).getLong("pincode");
+                            type[i]= array.getJSONObject(i).getString("vaccine");
+                            cost[i]= array.getJSONObject(i).getLong("fee");
                             min_age_limit[i] = array.getJSONObject(i).getLong("min_age_limit");
                             result += i + 1 + "+:-+" + "Vaccination+centres+for+minimum+age+limit+" + min_age_limit[i] + "%0A" + state_name[i].replace(" ", "+") + "+%0A"
                                     + state_address[i].replace(" ", "+") + "+%0A" +
-                                    "pincode+ " + pincode[i] + "%0A" + availableCapacity[i] + "+slots+are+available+on+" + date1 + "%0A" + "%0A";
+                                    "pincode+ " + pincode[i] + "%0A"+"Vaccine:+"+type[i] +"%0A"+"Fee+:+"+cost[i]+"%0A" +"Dose+1+:-+"+ available_capacity_dose1[i] + " slots+"+"%0A"+"Dose+2+:-+"+ available_capacity_dose2[i] + " slots+" +"%0A"+"available+on+"+ date1 + "%0A" + "%0A";
                         }
                         String apiURL = "https://api.telegram.org/bot1604017651:AAEWlp-OllFlAF4clHk4WPnUBVmtf0SR1b8/sendMessage?chat_id=" + link + "&text=";
                         apiURL += result;
