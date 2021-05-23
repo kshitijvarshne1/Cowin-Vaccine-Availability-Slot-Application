@@ -8,7 +8,6 @@
 package com.example.cowinvaccineavailablityslotapplication;
 
 
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -83,32 +81,37 @@ public class WebController {
                         String[] state_name = new String[array.length()];
                         String[] state_address = new String[array.length()];
                         long[] available_capacity_dose1 = new long[array.length()];
-                        long[] available_capacity_dose2= new long[array.length()];
+                        long[] available_capacity_dose2 = new long[array.length()];
                         long[] pincode = new long[array.length()];
                         long[] min_age_limit = new long[array.length()];
                         long[] cost = new long[array.length()];
-                        String[] type= new String[array.length()];
+                        String[] type = new String[array.length()];
                         String result = "";
+
                         for (int i = 0; i < array.length(); i++) {
                             state_name[i] = array.getJSONObject(i).getString("name");
                             state_address[i] = array.getJSONObject(i).getString("address");
                             available_capacity_dose1[i] = array.getJSONObject(i).getLong("available_capacity_dose1");
-                            available_capacity_dose2[i]=array.getJSONObject(i).getLong("available_capacity_dose2");
+                            available_capacity_dose2[i] = array.getJSONObject(i).getLong("available_capacity_dose2");
                             pincode[i] = array.getJSONObject(i).getLong("pincode");
-                            type[i]= array.getJSONObject(i).getString("vaccine");
-                            cost[i]= array.getJSONObject(i).getLong("fee");
+                            type[i] = array.getJSONObject(i).getString("vaccine");
+                            cost[i] = array.getJSONObject(i).getLong("fee");
                             min_age_limit[i] = array.getJSONObject(i).getLong("min_age_limit");
-                            result += i + 1 + "+:-+" + "Vaccination+centres+for+minimum+age+limit+" + min_age_limit[i] + "%0A" + state_name[i].replace(" ", "+") + "+%0A"
-                                    + state_address[i].replace(" ", "+") + "+%0A" +
-                                    "pincode+ " + pincode[i] + "%0A"+"Vaccine:+"+type[i] +"%0A"+"Fee+:+"+cost[i]+"%0A" +"Dose+1+:-+"+ available_capacity_dose1[i] + " slots+"+"%0A"+"Dose+2+:-+"+ available_capacity_dose2[i] + " slots+" +"%0A"+"available+on+"+ date1 + "%0A" + "%0A";
+                            if (available_capacity_dose1[i] > 0 || available_capacity_dose2[i] > 0) {
+                                result += i + 1 + "+:-+" + "Vaccination+centres+for+minimum+age+limit+" + min_age_limit[i] + "%0A" + state_name[i].replace(" ", "+") + "+%0A"
+                                        + state_address[i].replace(" ", "+") + "+%0A" +
+                                        "pincode+ " + pincode[i] + "%0A" + "Vaccine:+" + type[i] + "%0A" + "Fee+:+" + cost[i] + "%0A" + "Dose+1+:-+" + available_capacity_dose1[i] + " slots+" + "%0A" + "Dose+2+:-+" + available_capacity_dose2[i] + " slots+" + "%0A" + "available+on+" + date1 + "%0A" + "%0A";
+                            }
                         }
-                        String apiURL = "https://api.telegram.org/bot1604017651:AAEWlp-OllFlAF4clHk4WPnUBVmtf0SR1b8/sendMessage?chat_id=" + link + "&text=";
-                        apiURL += result;
-                        System.out.println(apiURL);
-                        URL uRL2 = new URL(apiURL);
-                        HttpURLConnection httpURLConnection2 = (HttpURLConnection) uRL2.openConnection();
-                        httpURLConnection2.setRequestMethod("GET");
-                        int n2 = httpURLConnection2.getResponseCode();
+                        if(result.length()>1){
+                            String apiURL = "https://api.telegram.org/bot1604017651:AAEWlp-OllFlAF4clHk4WPnUBVmtf0SR1b8/sendMessage?chat_id=" + link + "&text=";
+                            apiURL += result;
+                            System.out.println(apiURL);
+                            URL uRL2 = new URL(apiURL);
+                            HttpURLConnection httpURLConnection2 = (HttpURLConnection) uRL2.openConnection();
+                            httpURLConnection2.setRequestMethod("GET");
+                            int n2 = httpURLConnection2.getResponseCode();
+                        }
                     }
                     bufferedReader.close();
 
