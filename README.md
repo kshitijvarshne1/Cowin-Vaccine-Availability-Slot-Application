@@ -1,3 +1,3 @@
-# Cowin-Vaccine-Availablity-Slot-Application
+# Cowin-Vaccine-Availability-Slot-Application
 #
 ![img.png](img.png)
